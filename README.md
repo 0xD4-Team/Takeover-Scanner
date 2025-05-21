@@ -19,6 +19,6 @@
 ## التنصيب
 
 ```bash
-git clone https://github.com/username/0xD4-Takeover-Scanner.git
-cd 0xD4-Takeover-Scanner
+git clone https://github.com/0xD4-Team/Takeover-Scanner.git
+cd Takeover-Scanner
 pip install -r requirements.txt
