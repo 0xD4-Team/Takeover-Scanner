@@ -44,6 +44,9 @@ CONFIG = {
     }
 }
 
+
+
+
 # Advanced logging setup
 def setup_logging():
     logger = logging.getLogger("0xD4-Takeover")
@@ -124,7 +127,47 @@ class AdvancedScanner:
             'mx': [], 'txt': [], 'ns': [],
             'soa': None, 'dmarc': None, 'spf': None
         }
+    
+
+    def find_expired_domains(keyword: str, limit: int = 50) -> List[Dict]:
+        """Search for expired domains containing keywords"""
+        logger.info(f"Starting expired domain search for keyword: {keyword}")
+    
+        try:
+            # Step 1: Use Google Dorking to find potentially expired domains
+            search_query = f"site:domaintools.com inurl:whois {keyword}"
+            domains = self._google_dork_search(search_query, limit)
         
+            # Step 2: Filter and check WHOIS
+            expired_domains = []
+            for domain in domains:
+                whois_info = self.check_whois(domain)
+                if whois_info.get('expired', False):
+                    expired_domains.append({
+                        'domain': domain,
+                        'expiry_date': whois_info.get('expiration_date'),
+                        'registrar': whois_info.get('registrar'),
+                        'status': whois_info.get('status', [])
+                    })
+        
+            return expired_domains
+        
+        except Exception as e:
+            logger.error(f"Expired domain search failed: {e}")
+            raise
+
+    def _google_dork_search(self, query: str, limit: int = 50) -> List[str]:
+        """Perform Google dork search"""
+        try:
+
+            # Implement actual Google search here (or use google-search package)
+            # This is a placeholder implementation
+            return []
+        except Exception as e:
+            logger.error(f"Google dork search failed: {e}")
+            return []
+
+
         try:
             # Standard records
             for record_type in ['A', 'AAAA', 'CNAME', 'MX', 'NS', 'TXT']:
@@ -551,6 +594,18 @@ def main():
     results = []
     
     try:
+        if args.find_expired:
+            # Expired domain search
+            expired_domains = scanner.find_expired_domains(args.find_expired)
+            
+            if args.output:
+                with open(args.output, 'w') as f:
+                    json.dump(expired_domains, f, indent=2)
+                logger.info(f"Found {len(expired_domains)} expired domains. Results saved to {args.output}")
+            else:
+                print(json.dumps(expired_domains, indent=2))
+            
+            return
         if args.domain:
             # Single domain scan
             results.append(scanner.scan_domain(args.domain))
