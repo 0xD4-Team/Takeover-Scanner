@@ -79,6 +79,30 @@ def setup_logging():
 
 logger = setup_logging()
 
+def show_banner():
+        """Display the tool banner"""
+        banner = """
+         ________    ___    ___ ________  ___   ___     
+        |\   __  \  |\  \  /  /|\   ___ \|\  \ |\  \    
+        \ \  \|\  \ \ \  \/  / | \  \_|\ \ \  \\_\  \   
+        \ \  \\\  \  \ \    / /\ \  \ \\ \  \______  \  
+        \ \  \\\  \  /     \/  \ \  \_\\ \  |_____|\  \ 
+        \ \_______\/  /\   \   \ \_______\        \ \__\
+        \|_______/__/ /\ __\   \|_______|           \|__|
+                 |__|/ \|__|                         
+
+        🔓 Ethical Hacking & Cybersecurity
+        📌 Follow for hacking tips & tools
+        📩 Contact: iiqq_h@proton.me
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        📱 Instagram: @iiqq_h 
+        🎵 TikTok: @iiqq_h
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        ✨ 0xD4 Team - Knowledge is Power
+        """
+        print(banner)
+
 class AdvancedScanner:
     """Main scanner class with advanced detection techniques"""
     
@@ -91,7 +115,8 @@ class AdvancedScanner:
         self.providers = CONFIG['cloud_providers']
         self.rotated_agents = []
         self._prepare_http_client()
-    
+
+
     def _prepare_http_client(self):
         """Configure HTTP client with advanced settings"""
         # Rotate user agents
@@ -539,29 +564,6 @@ class AdvancedScanner:
         
         logger.info(f"Completed scan for {domain}")
         return results
-    def show_banner():
-        """Display the tool banner"""
-        banner = """
-         ________    ___    ___ ________  ___   ___     
-        |\   __  \  |\  \  /  /|\   ___ \|\  \ |\  \    
-        \ \  \|\  \ \ \  \/  / | \  \_|\ \ \  \\_\  \   
-        \ \  \\\  \  \ \    / /\ \  \ \\ \  \______  \  
-        \ \  \\\  \  /     \/  \ \  \_\\ \  |_____|\  \ 
-        \ \_______\/  /\   \   \ \_______\        \ \__\
-        \|_______/__/ /\ __\   \|_______|           \|__|
-                 |__|/ \|__|                         
-
-        🔓 Ethical Hacking & Cybersecurity
-        📌 Follow for hacking tips & tools
-        📩 Contact: iiqq_h@proton.me
-
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        📱 Instagram: @iiqq_h 
-        🎵 TikTok: @iiqq_h
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        ✨ 0xD4 Team - Knowledge is Power
-        """
-        print(banner)
 
 def main():
 
