@@ -44,11 +44,8 @@ CONFIG = {
     }
 }
 
-
-
-
-# Advanced logging setup
 def setup_logging():
+    """Configure advanced logging system"""
     logger = logging.getLogger("0xD4-Takeover")
     logger.setLevel(logging.DEBUG)
 
@@ -80,27 +77,27 @@ def setup_logging():
 logger = setup_logging()
 
 def show_banner():
-        """Display the tool banner"""
-        banner = """
-         ██████╗ ██╗  ██╗██████╗ ██╗  ██╗
-        ██╔═████╗╚██╗██╔╝██╔══██╗██║  ██║
-        ██║██╔██║ ╚███╔╝ ██║  ██║███████║
-        ████╔╝██║ ██╔██╗ ██║  ██║╚════██║
-        ╚██████╔╝██╔╝ ██╗██████╔╝     ██║
-         ╚═════╝ ╚═╝  ╚═╝╚═════╝      ╚═╝
-                                                    
+    """Display the tool banner"""
+    banner = """
+     ██████╗ ██╗  ██╗██████╗ ██╗  ██╗
+    ██╔═████╗╚██╗██╔╝██╔══██╗██║  ██║
+    ██║██╔██║ ╚███╔╝ ██║  ██║███████║
+    ████╔╝██║ ██╔██╗ ██║  ██║╚════██║
+    ╚██████╔╝██╔╝ ██╗██████╔╝     ██║
+     ╚═════╝ ╚═╝  ╚═╝╚═════╝      ╚═╝
+                                                
 
-        🔓 Ethical Hacking & Cybersecurity
-        📌 Follow for hacking tips & tools
-        📩 Contact: iiqq_h@proton.me
+    🔓 Ethical Hacking & Cybersecurity
+    📌 Follow for hacking tips & tools
+    📩 Contact: iiqq_h@proton.me
 
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        📱 Instagram: @iiqq_h 
-        🎵 TikTok: @iiqq_h
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        ✨ 0xD4 Team - Knowledge is Power
-        """
-        print(banner)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    📱 Instagram: @iiqq_h 
+    🎵 TikTok: @iiqq_h
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    ✨ 0xD4 Team - Knowledge is Power
+    """
+    print(banner)
 
 class AdvancedScanner:
     """Main scanner class with advanced detection techniques"""
@@ -114,7 +111,6 @@ class AdvancedScanner:
         self.providers = CONFIG['cloud_providers']
         self.rotated_agents = []
         self._prepare_http_client()
-
 
     def _prepare_http_client(self):
         """Configure HTTP client with advanced settings"""
@@ -151,64 +147,7 @@ class AdvancedScanner:
             'mx': [], 'txt': [], 'ns': [],
             'soa': None, 'dmarc': None, 'spf': None
         }
-    
-
-    def find_expired_domains(self, keyword: str, limit: int = 50) -> List[Dict]:
-        """Search for expired domains containing keywords"""
-        keyword = keyword.lower().strip()
-        if not keyword:
-            logger.warning("No keyword provided, searching all expired domains")
-        logger.info(f"Starting expired domain search for keyword: {keyword}")
-    
-        try:
-        # مصادر البحث عن النطاقات المنتهية
-            sources = [
-                f"https://www.expireddomains.net/domain/{keyword}",
-                f"https://www.justdropped.com/search?q={keyword}",
-                f"https://www.expireddomains.net/deleted-com-domains/?q={keyword}"
-            ]
         
-            expired_domains = []
-        
-            for source in sources:
-                try:
-                    response = requests.get(source, timeout=15)
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # استخراج النطاقات من الجداول
-                    for row in soup.select('table tr'):
-                        cells = row.select('td')
-                        if len(cells) > 1:
-                            domain = cells[0].text.strip()
-                            expiry_date = cells[1].text.strip() if len(cells) > 1 else "Unknown"
-                        
-                            expired_domains.append({
-                                'domain': domain,
-                                'expiry_date': expiry_date,
-                                'source': source
-                            })
-                
-                except Exception as e:
-                    logger.error(f"Error checking {source}: {e}")
-        
-            return expired_domains[:limit]
-        
-        except Exception as e:
-            logger.error(f"Expired domain search failed: {e}")
-            raise
-
-    def _google_dork_search(self, query: str, limit: int = 50) -> List[str]:
-        """Perform Google dork search"""
-        try:
-
-            # Implement actual Google search here (or use google-search package)
-            # This is a placeholder implementation
-            return []
-        except Exception as e:
-            logger.error(f"Google dork search failed: {e}")
-            return []
-
-
         try:
             # Standard records
             for record_type in ['A', 'AAAA', 'CNAME', 'MX', 'NS', 'TXT']:
@@ -552,7 +491,7 @@ class AdvancedScanner:
         """Full domain scanning workflow with proper URL handling"""
         logger.info(f"Starting comprehensive scan for {domain}")
     
-    # تنظيف المدخلات وإزالة البروتوكول إذا وجد
+        # تنظيف المدخلات وإزالة البروتوكول إذا وجد
         clean_domain = re.sub(r'^https?://', '', domain).split('/')[0]
     
         results = {
@@ -584,26 +523,52 @@ class AdvancedScanner:
         logger.info(f"Completed scan for {domain}")
         return results
 
-def main():
-    try:
-        show_banner()
-        
-        if args.domain:
-            scanner = AdvancedScanner()
-            try:
-                result = scanner.scan_domain(args.domain)
-                print(json.dumps(result, indent=2))
-                
-                if args.output:
-                    with open(args.output, 'w') as f:
-                        json.dump(result, f, indent=2)
-            except Exception as e:
-                logger.error(f"Scan failed: {e}")
-                sys.exit(1)
-    except KeyboardInterrupt:
-        logger.info("\nScan interrupted by user")
-        sys.exit(0)  # أضف هذه السطر في بداية الدالة
+    def find_expired_domains(self, keyword: str, limit: int = 50) -> List[Dict]:
+        """Search for expired domains containing keywords"""
+        keyword = keyword.lower().strip()
+        if not keyword:
+            logger.warning("No keyword provided, searching all expired domains")
+        logger.info(f"Starting expired domain search for keyword: {keyword}")
     
+        try:
+            # مصادر البحث عن النطاقات المنتهية
+            sources = [
+                f"https://www.expireddomains.net/domain/{keyword}",
+                f"https://www.justdropped.com/search?q={keyword}",
+                f"https://www.expireddomains.net/deleted-com-domains/?q={keyword}"
+            ]
+        
+            expired_domains = []
+        
+            for source in sources:
+                try:
+                    response = requests.get(source, timeout=15)
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                
+                    # استخراج النطاقات من الجداول
+                    for row in soup.select('table tr'):
+                        cells = row.select('td')
+                        if len(cells) > 1:
+                            domain = cells[0].text.strip()
+                            expiry_date = cells[1].text.strip() if len(cells) > 1 else "Unknown"
+                        
+                            expired_domains.append({
+                                'domain': domain,
+                                'expiry_date': expiry_date,
+                                'source': source
+                            })
+                
+                except Exception as e:
+                    logger.error(f"Error checking {source}: {e}")
+        
+            return expired_domains[:limit]
+        
+        except Exception as e:
+            logger.error(f"Expired domain search failed: {e}")
+            raise
+
+def main():
+    """Main entry point for the scanner"""
     parser = argparse.ArgumentParser(
         description='0xD4 Advanced Domain Takeover Scanner',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -649,6 +614,8 @@ def main():
     
     args = parser.parse_args()
     
+    show_banner()
+    
     if args.verbose:
         logger.setLevel(logging.DEBUG)
     
@@ -668,6 +635,52 @@ def main():
         except Exception as e:
             logger.error(f"Failed to search expired domains: {e}")
             sys.exit(1)
+    elif args.domain:
+        try:
+            result = scanner.scan_domain(args.domain)
+            print(json.dumps(result, indent=2))
+            
+            if args.output:
+                with open(args.output, 'w') as f:
+                    json.dump(result, f, indent=2)
+        except Exception as e:
+            logger.error(f"Scan failed: {e}")
+            sys.exit(1)
+    elif args.list:
+        try:
+            with open(args.list, 'r') as f:
+                domains = [line.strip() for line in f if line.strip()]
+            
+            results = []
+            with concurrent.futures.ThreadPoolExecutor(max_workers=args.threads) as executor:
+                future_to_domain = {
+                    executor.submit(scanner.scan_domain, domain): domain 
+                    for domain in domains
+                }
+                
+                for future in concurrent.futures.as_completed(future_to_domain):
+                    domain = future_to_domain[future]
+                    try:
+                        result = future.result()
+                        results.append(result)
+                        logger.info(f"Completed scan for {domain}")
+                    except Exception as e:
+                        logger.error(f"Scan failed for {domain}: {e}")
+            
+            if args.output:
+                with open(args.output, 'w') as f:
+                    json.dump(results, f, indent=2)
+                logger.info(f"Results saved to {args.output}")
+            else:
+                print(json.dumps(results, indent=2))
+            
+        except Exception as e:
+            logger.error(f"Failed to process domain list: {e}")
+            sys.exit(1)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        logger.info("\nScan interrupted by user")
+        sys.exit(0)
