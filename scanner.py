@@ -539,9 +539,35 @@ class AdvancedScanner:
         
         logger.info(f"Completed scan for {domain}")
         return results
+    def show_banner():
+        """Display the tool banner"""
+        banner = """
+         ________    ___    ___ ________  ___   ___     
+        |\   __  \  |\  \  /  /|\   ___ \|\  \ |\  \    
+        \ \  \|\  \ \ \  \/  / | \  \_|\ \ \  \\_\  \   
+        \ \  \\\  \  \ \    / /\ \  \ \\ \  \______  \  
+        \ \  \\\  \  /     \/  \ \  \_\\ \  |_____|\  \ 
+        \ \_______\/  /\   \   \ \_______\        \ \__\
+        \|_______/__/ /\ __\   \|_______|           \|__|
+                 |__|/ \|__|                         
+
+        🔓 Ethical Hacking & Cybersecurity
+        📌 Follow for hacking tips & tools
+        📩 Contact: iiqq_h@proton.me
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        📱 Instagram: @iiqq_h 
+        🎵 TikTok: @iiqq_h
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        ✨ 0xD4 Team - Knowledge is Power
+        """
+        print(banner)
 
 def main():
+
     """Main entry point for the scanner"""
+    show_banner()  # أضف هذه السطر في بداية الدالة
+    
     parser = argparse.ArgumentParser(
         description='0xD4 Advanced Domain Takeover Scanner',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
