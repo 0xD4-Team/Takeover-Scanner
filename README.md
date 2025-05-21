@@ -27,7 +27,7 @@
 4. (اختياري) تثبيت الأداة بشكل دائم
 pip install -e .
 
-
+'''
 ## 📥 التنصيب والتهيئة
 
 ### 1. إنشاء بيئة افتراضية (مهم جداً)
@@ -35,9 +35,12 @@ pip install -e .
 python -m venv 0xD4-env
 source 0xD4-env/bin/activate  # Linux/macOS
 0xD4-env\Scripts\activate     # Windows
+...
 ## 🚀 طريقة التشغيل
 المسح الأساسي:
+```bash
 python3 scanner.py -d example.com
+...
 البحث عن نطاقات منتهية:
 python3 scanner.py --find-expired "shop" -o results.json
 مسح متقدم:
