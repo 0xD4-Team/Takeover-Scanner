@@ -6,3 +6,4 @@ concurrent-log-handler==0.9.24
 fake-useragent==1.2.1
 tldextract==5.1.1
 urllib3==2.0.4
+colorama
