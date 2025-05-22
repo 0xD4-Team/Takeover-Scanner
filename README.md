@@ -2,7 +2,7 @@
 **أداة متقدمة لاكتشاف ثغرات الاستيلاء على النطاقات والنطاقات الفرعية**  
 *من تطوير فريق 0xD4 الأمني - "Knowledge is Power"*
 
-![Banner](https://i.imgur.com/jQBPwmS.jpeg)
+![Banner](https://i.imgur.com/N4Bi2oG.jpeg)
 
 ---
 
